@@ -1,0 +1,7 @@
+service vndservicemanager /vendor/bin/vndservicemanager /dev/vndbinder
+    setenv LD_PRELOAD /usr/libexec/droid-hybris/system/lib64/libselinux_stubs.so
+    class core
+    user system
+    group system readproc
+    writepid /dev/cpuset/system-background/tasks
+    shutdown critical

@@ -1,0 +1,14 @@
+# hybris overwrite for hwservicemanager
+
+service hwservicemanager /system/bin/hwservicemanager
+    setenv LD_PRELOAD /usr/libexec/droid-hybris/system/lib64/libselinux_stubs.so
+    user system
+    disabled
+    group system readproc
+    critical
+    onrestart setprop hwservicemanager.ready false
+    onrestart class_restart hal
+    onrestart class_restart early_hal
+    writepid /dev/cpuset/system-background/tasks
+    class animation
+    shutdown critical

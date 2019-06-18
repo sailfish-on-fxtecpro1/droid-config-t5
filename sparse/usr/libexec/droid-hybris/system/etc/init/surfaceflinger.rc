@@ -1,0 +1,6 @@
+# disable the original surfaceflinger in case it is enabled by another unit.
+# this unit is included first so it will overwrite any other surfaceflinger
+# definitions.
+
+service surfaceflinger /system/bin/surfaceflinger_HYBRIS_DISABLED
+    disabled

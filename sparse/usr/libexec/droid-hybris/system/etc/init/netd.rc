@@ -1,0 +1,9 @@
+# disable netd by pointing it to a non-existing file. Further service
+# definitions will be ignored and this one has to be included first.
+
+service netd /system/bin/netd_HYBRIS_DISABLED
+    class main
+    socket netd stream 0660 root system
+    socket dnsproxyd stream 0660 root inet
+    socket mdns stream 0660 root system
+    socket fwmarkd stream 0660 root inet
