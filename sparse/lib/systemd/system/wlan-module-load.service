@@ -1,0 +1,14 @@
+[Unit]
+Description=Load wifi module
+Conflicts=shutdown.target actdead.target
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart=/sbin/modprobe qca_cld3_wlan
+ExecStop=/sbin/rmmod wlan
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
