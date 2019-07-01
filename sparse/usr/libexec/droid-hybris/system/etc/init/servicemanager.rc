@@ -1,0 +1,37 @@
+service servicemanager /system/bin/servicemanager
+    setenv LD_PRELOAD /usr/libexec/droid-hybris/system/lib64/libselinux_stubs.so
+    class core animation
+    user system
+    group system readproc
+    critical
+    #onrestart restart healthd
+    #onrestart restart zygote
+    #onrestart restart audioserver
+    #onrestart restart media
+    #onrestart restart surfaceflinger
+    #onrestart restart inputflinger
+    #onrestart restart drm
+    #onrestart restart cameraserver
+    #onrestart restart keystore
+    #onrestart restart gatekeeperd
+    onrestart restart miniaf
+    onrestart restart minimedia
+    onrestart restart minisf
+    writepid /dev/cpuset/system-background/tasks
+    shutdown critical
+
+service minimedia /usr/libexec/droid-hybris/system/bin/minimediaservice
+    class main
+    user media
+    group audio camera
+    ioprio rt 4
+
+service minisf /usr/libexec/droid-hybris/system/bin/minisfservice
+    class main
+    user system
+    group graphics
+
+service miniaf /usr/libexec/droid-hybris/system/bin/miniafservice
+    class main
+    user system
+    group audio
