@@ -1,0 +1,22 @@
+[Unit]
+Description=Droid mount for /mnt/vendor/persist
+#Before=local-fs.target systemd-modules-load.service
+After= droid-hal-init.service
+
+[Mount]
+What=/dev/sda2
+Where=/mnt/vendor/persist
+Type=ext4
+Options=noatime,nosuid,nodev,barrier=1
+# Options had SELinux context option:  
+
+# Default is 90 which makes mount period too long in case of
+# errors so drop it down a notch.
+TimeoutSec=10
+
+[Install]
+WantedBy=graphical.target
+
+# From ./out/target/product/t5/vendor/etc/fstab.qcom :
+# /dev/sda2    /mnt/vendor/persist     ext4   noatime,nosuid,nodev,barrier=1                   wait
+ 
