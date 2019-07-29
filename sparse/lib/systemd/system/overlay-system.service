@@ -1,0 +1,12 @@
+[Unit]
+Description=Overlay /usr/libexec/droid-hal/system over /system
+After=system.mount
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/bin/droid/mount_overlay_system.sh
+
+[Install]
+WantedBy=localfs.target
+ 
