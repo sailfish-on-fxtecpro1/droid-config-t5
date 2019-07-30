@@ -8,5 +8,5 @@ RemainAfterExit=true
 ExecStart=/usr/bin/droid/mount_overlay_system.sh
 
 [Install]
-WantedBy=localfs.target
+WantedBy=local-fs.target
  
