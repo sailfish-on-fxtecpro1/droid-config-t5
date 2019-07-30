@@ -40,6 +40,7 @@ Requires:
 - qt5-plugin-generic-evdev
 
 - pulseaudio-modules-droid
+- pulseaudio-modules-droid-glue
 # for audio recording to work:
 - qt5-qtmultimedia-plugin-mediaservice-gstmediacapture
 
