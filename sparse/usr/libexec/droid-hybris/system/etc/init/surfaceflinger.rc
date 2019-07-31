@@ -4,3 +4,5 @@
 
 service surfaceflinger /system/bin/surfaceflinger_HYBRIS_DISABLED
     disabled
+    override
+    

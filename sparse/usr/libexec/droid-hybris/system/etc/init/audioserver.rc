@@ -6,6 +6,8 @@ service audioserver /system/bin/audioserver_HYBRIS_DISABLED
     ioprio rt 4
     writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
     onrestart restart audio-hal-2-0
+    disabled
+    override
 
 on property:vts.native_server.on=1
     stop audioserver

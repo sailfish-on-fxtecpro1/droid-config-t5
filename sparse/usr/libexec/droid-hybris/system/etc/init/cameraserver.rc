@@ -4,3 +4,6 @@ service cameraserver /system/bin/cameraserver_HYBRIS_DISABLED
     group audio camera input drmrpc
     ioprio rt 4
     writepid /dev/cpuset/camera-daemon/tasks /dev/stune/top-app/tasks
+    disabled
+    override
+    
