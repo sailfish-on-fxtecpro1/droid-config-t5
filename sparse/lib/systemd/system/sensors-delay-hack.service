@@ -1,0 +1,12 @@
+[Unit]
+Description=sensorfwd delay hack
+After=droid-late-start.service
+Before=sensorfwd.service start-user-session.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sleep 5
+
+[Install]
+WantedBy=graphical.target
+ 
