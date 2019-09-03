@@ -1,0 +1,7 @@
+service time_daemon /vendor/bin/time_daemon_HYBRIS_DISABLED
+    class main
+    user system
+    group system
+    capabilities SYS_TIME
+    disabled
+    override
