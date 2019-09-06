@@ -5,7 +5,7 @@ After=system.mount
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=/usr/bin/sh /usr/bin/droid/bind_vendor.sh
+ExecStart=/bin/sh /usr/bin/droid/bind_vendor.sh
 
 [Install]
 WantedBy=local-fs.target
