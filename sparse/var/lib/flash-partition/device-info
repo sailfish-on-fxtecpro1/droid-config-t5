@@ -1,0 +1,8 @@
+CPUCHECK_STRING="Qualcomm Technologies, Inc MSM8998"
+
+PART_1="boot_a"
+
+PART_REAL_1="sde12"
+
+PART_I="1" 
+
