@@ -1,6 +1,7 @@
 [Unit]
 Description=Bind mount certain files over /vendor
 After=system.mount
+DefaultDependencies=no
 
 [Service]
 Type=oneshot

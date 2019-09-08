@@ -1,6 +1,7 @@
 [Unit]
 Description=Overlay /usr/libexec/droid-hal/system over /system
 After=system.mount
+DefaultDependencies=no
 
 [Service]
 Type=oneshot
