@@ -35,7 +35,7 @@ Requires: qt5-feedback-haptics-native-vibrator
 
 # Pulseadio
 Requires: pulseaudio-modules-droid
-Requires: pulseaudio-modules-droid-glue
+Requires: pulseaudio-modules-droid-hidl
 
 # Needed for camera to work
 Requires: audioflingerglue
