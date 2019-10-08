@@ -38,6 +38,9 @@ Requires: geoclue-provider-mlsdb
 # Sailfish OS CSD tool for hardware testing
 Requires: csd
 
+# Fxtec pro1 keyboard layout
+Requires: xkeyboard-config-pro1
+
 %description
 Meta package to install packages for t5 configurations
 %files 

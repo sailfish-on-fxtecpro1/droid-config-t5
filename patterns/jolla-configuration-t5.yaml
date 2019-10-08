@@ -43,5 +43,8 @@ Requires:
 # to improve camera startup times and the like
 #- mapplauncherd-booster-silica-qt5-media
 
+# Fxtec pro1 keyboard layout
+- xkeyboard-config-pro1
+
 Summary: Jolla Configuration t5
 
