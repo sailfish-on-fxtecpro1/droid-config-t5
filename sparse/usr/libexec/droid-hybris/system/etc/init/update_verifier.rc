@@ -1,0 +1,13 @@
+service update_verifier_nonencrypted /system/bin/update_verifier_HYBRIS_DISABLED nonencrypted
+    user root
+    group cache system
+    priority -20
+    ioprio rt 0
+    disabled
+
+service update_verifier /system/bin/update_verifier_HYBRIS_DISABLED ${vold.decrypt}
+    user root
+    group cache system
+    priority -20
+    ioprio rt 0
+    disabled
