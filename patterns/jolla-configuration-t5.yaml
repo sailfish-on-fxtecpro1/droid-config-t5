@@ -4,7 +4,7 @@
 Description: Pattern with packages for t5 configurations
 Name: jolla-configuration-t5
 Requires:
-- pattern:jolla-hw-adaptation-t5
+- jolla-hw-adaptation-t5
 
 - patterns-sailfish-applications
 - patterns-sailfish-ui
@@ -18,7 +18,7 @@ Requires:
 # For NFC
 - jolla-settings-system-nfc
 
-#For flashlight control
+# For flashlight control
 - jolla-settings-system-flashlight
 
 # For multi-SIM devices
