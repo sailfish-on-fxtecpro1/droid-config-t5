@@ -26,10 +26,25 @@ Requires: strace
 Requires: jolla-rnd-device
 #End sailfish-porter-tools
 
-# Jolla Store Items
+Requires: sailfish-content-graphics-z1.5
+
+# For NFC
+Requires: jolla-settings-system-nfc
+
+# For flashlight control
+Requires: jolla-settings-system-flashlight
+
+# For multi-SIM devices
+Requires: jolla-settings-networking-multisim
+
+# Introduced starting Sailfish OS 2.0.4.x:
+# 3rd party accounts like Twitter, VK, cloud services, etc
+Requires: jolla-settings-accounts-extensions-3rd-party-all
+
+# Introduced starting Sailfish OS 2.1.1.26
+# Required for Jolla Store Access
 Requires: patterns-sailfish-consumer-generic
 
-Requires: sailfish-content-graphics-z1.5
 Requires: jolla-settings-accounts-extensions-3rd-party-all
 
 # For Mozilla location services (online)
@@ -37,6 +52,10 @@ Requires: geoclue-provider-mlsdb
 
 # Sailfish OS CSD tool for hardware testing
 Requires: csd
+
+# Devices with 2G or more memory should also include this booster
+# to improve camera startup times and the like
+Requires: mapplauncherd-booster-silica-qt5-media
 
 # Fxtec pro1 keyboard layout
 Requires: xkeyboard-config-pro1
