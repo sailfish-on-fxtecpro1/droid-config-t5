@@ -1,8 +1,9 @@
 # These and other macros are documented in ../droid-configs-device/droid-configs.inc
 # Feel free to cleanup this file by removing comments, once you have memorised them ;)
 
-%define device t5
+%define device QX1000
 %define vendor fxtec
+%define rpm_device qx1000
 
 %define vendor_pretty F(x)tec
 %define device_pretty Pro1

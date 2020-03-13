@@ -1,10 +1,10 @@
 Name: jolla-configuration-t5
-Summary: Jolla Configuration t5
+Summary: Jolla Configuration qx1000
 Version: 0.0.1
 Release: 1
 License: BSD-3-Clause
 Source: %{name}-%{version}.tar.gz
-Requires: jolla-hw-adaptation-t5
+Requires: jolla-hw-adaptation-qx1000
 Requires: patterns-sailfish-cellular-apps
 Requires: patterns-sailfish-applications
 Requires: patterns-sailfish-ui

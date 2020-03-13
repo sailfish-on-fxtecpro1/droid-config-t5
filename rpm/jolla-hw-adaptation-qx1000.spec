@@ -1,5 +1,5 @@
-Name: jolla-hw-adaptation-t5
-Summary: Jolla HW Adaptation t5
+Name: jolla-hw-adaptation-qx1000
+Summary: Jolla HW Adaptation qx1000
 Version: 0.0.1
 Release: 1
 License: BSD-3-Clause
@@ -76,19 +76,19 @@ Requires: geoclue-provider-hybris
 # For mounting SD card automatically
 Requires: sd-utils
 
-Requires: droid-hal-t5
-Requires: droid-hal-t5-img-boot
-Requires: droid-hal-t5-kernel-modules
-Requires: droid-config-t5-sailfish
-Requires: droid-config-t5-pulseaudio-settings
-Requires: droid-config-t5-policy-settings
-Requires: droid-config-t5-preinit-plugin
-Requires: droid-config-t5-flashing
-Requires: droid-config-t5-bluez5
-Requires: droid-hal-version-t5
+Requires: droid-hal-qx1000
+Requires: droid-hal-qx1000-img-boot
+Requires: droid-hal-qx1000-kernel-modules
+Requires: droid-config-qx1000-sailfish
+Requires: droid-config-qx1000-pulseaudio-settings
+Requires: droid-config-qx1000-policy-settings
+Requires: droid-config-qx1000-preinit-plugin
+Requires: droid-config-qx1000-flashing
+Requires: droid-config-qx1000-bluez5
+Requires: droid-hal-version-qx1000
 
 
 %description
-Meta package to install packages for t5 HW Adaptation
+Meta package to install packages for qx1000 HW Adaptation
 %files
  
