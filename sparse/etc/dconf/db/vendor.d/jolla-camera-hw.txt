@@ -41,8 +41,8 @@ exposureCompensationValues=[4, 2, 0, -2, -4]
 focusDistance=16
 
 [apps/jolla-camera/secondary/video]
-imageResolution='2688x1512'
-videoResolution='2688x1512'
+imageResolution='1920x1080'
+videoResolution='1920x1080'
 viewfinderResolution='1920x1080'
 videoFrameRate=30
 isoValues=[0, 100, 200, 400, 800, 1600, 3200]
