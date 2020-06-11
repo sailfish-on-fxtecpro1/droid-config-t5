@@ -49,6 +49,10 @@ Requires: mapplauncherd-booster-silica-qt5-media
 # Fxtec pro1 keyboard layout
 Requires: xkeyboard-config-pro1
 
+#Add FP support
+Requires: sailfish-fpd-community
+Requires: sailfish-devicelock-fpd
+
 %description
 Meta package to install packages for t5 configurations
 %files 
