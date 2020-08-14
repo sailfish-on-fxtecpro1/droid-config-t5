@@ -1,0 +1,171 @@
+pushd $IMG_OUT_DIR
+
+MD5SUMFILE=md5.lst
+
+DEVICE_VERSION_FILE=./hw-release
+
+if [ -n "@EXTRA_NAME@" ] && [ "@EXTRA_NAME@" != @"EXTRA_NAME"@ ]; then
+  EXTRA_NAME="@EXTRA_NAME@-"
+fi
+
+if [[ -a $DEVICE_VERSION_FILE ]]; then
+  source $DEVICE_VERSION_FILE
+  DEVICE_ID=-${MER_HA_DEVICE// /_}-$VERSION_ID
+fi
+
+source ./os-release
+if [ "$SSU_RELEASE_TYPE" = "rnd" ]; then
+  RND_FLAVOUR=$SAILFISH_FLAVOUR
+fi
+
+RELEASENAME=${NAME// /_}-${SAILFISH_CUSTOMER// /_}${SAILFISH_CUSTOMER:+-}${EXTRA_NAME// /_}$RND_FLAVOUR${RND_FLAVOUR:+-}$VERSION_ID$DEVICE_ID
+
+# Remove /opt mounting from fstab, systemd will handle it
+mkdir root
+mount -o loop root.img root
+sed -i '/\/opt/d' root/etc/fstab
+umount root
+rm -rf root
+
+IMGSECTORS=0
+IMGBLOCKS=0
+IMGSIZE=0
+BLOCKSIZE=0
+
+resizeloop() {
+  local IMG=$1
+  local LOOP=$(/sbin/losetup -f)
+  /sbin/losetup $LOOP $IMG
+  /sbin/e2fsck -f -y $LOOP
+
+  # Get image blocks and free blocks
+  local BLOCKCOUNT=$(/sbin/dumpe2fs -h $LOOP 2>&1 | grep "Block count:" | grep -o -E '[0-9]+')
+  local FREEBLOCKS=$(/sbin/dumpe2fs -h $LOOP 2>&1 | grep "Free blocks:" | grep -o -E '[0-9]+')
+  BLOCKSIZE=$(/sbin/dumpe2fs -h $LOOP 2>&1 | grep "Block size:" | grep -o -E '[0-9]+')
+  echo "$IMG total block count: $BLOCKCOUNT - Free blocks: $FREEBLOCKS"
+
+  local IMAGEBLOCKS=$(/usr/bin/expr $BLOCKCOUNT - $FREEBLOCKS)
+  local IMAGESECTORS=$(/usr/bin/expr $IMAGEBLOCKS \* $BLOCKSIZE / 512 )
+
+  # Shrink to minimum
+  echo "Shrink $IMG to $IMAGESECTORS"
+  /sbin/resize2fs $LOOP ${IMAGESECTORS}s -f
+
+  # Get the size after resize.
+  IMGBLOCKS=$(/sbin/dumpe2fs -h $LOOP 2>&1 | grep "Block count:" | grep -o -E '[0-9]+')
+  IMGSIZE=$(/usr/bin/expr $IMGBLOCKS \* $BLOCKSIZE)
+  IMGSECTORS=$(/usr/bin/expr $IMGBLOCKS \* $BLOCKSIZE / 512)
+  echo "$IMG resized block count: $IMGBLOCKS - Block size: $BLOCKSIZE - Sectors: $IMGSECTORS - Total size: $IMGSIZE"
+
+  /sbin/losetup -d $LOOP
+}
+
+echo "Resize root and home"
+
+# Resize root and home to minimum
+resizeloop root.img
+
+ROOTSIZE=$IMGSIZE
+ROOTBLOCKS=$IMGBLOCKS
+ROOTSECTORS=$IMGSECTORS
+
+resizeloop home.img
+
+HOMESIZE=$IMGSIZE
+HOMEBLOCKS=$IMGBLOCKS
+HOMESECTORS=$IMGSECTORS
+
+# We will add some (100M) extra to temp image.
+TEMPIMGSECTORS=$(/usr/bin/expr $ROOTSECTORS + $HOMESECTORS + 200000 )
+
+dd if=/dev/zero bs=512 count=0 of=temp.img seek=$TEMPIMGSECTORS
+
+LVM_LOOP=$(/sbin/losetup -f)
+/sbin/losetup $LVM_LOOP temp.img
+/usr/sbin/pvcreate $LVM_LOOP
+/usr/sbin/vgcreate sailfish $LVM_LOOP
+
+echo "Create logical volume ROOT size: $ROOTSIZE"
+/usr/sbin/lvcreate -L ${ROOTSIZE}B --name root sailfish
+
+echo "Create logical volume HOME size: $HOMESIZE"
+/usr/sbin/lvcreate -L ${HOMESIZE}B --name home sailfish
+
+/bin/sync
+/usr/sbin/vgchange -a y sailfish
+
+dd if=root.img bs=$BLOCKSIZE count=$ROOTBLOCKS of=/dev/sailfish/root
+
+dd if=home.img bs=$BLOCKSIZE count=$HOMEBLOCKS of=/dev/sailfish/home
+
+/usr/sbin/vgchange -a n sailfish
+
+pigz -7 root.img && md5sum -b root.img.gz > root.img.gz.md5&
+pigz -7 home.img && md5sum -b home.img.gz > home.img.gz.md5&
+wait
+
+ROOTSIZE=$(/bin/ls -l root.img.gz | cut -d ' ' -f5)
+HOMESIZE=$(/bin/ls -l home.img.gz | cut -d ' ' -f5)
+
+# Temporary dir for making factory image backups.
+FIMAGE_TEMP=$(mktemp -d -p $(pwd))
+
+# For some reason loop files created by imager don't shrink properly when
+# running resize2fs -M on them. Hence manually growing the loop file here
+# to make the shrinking work once we have the image populated.
+dd if=/dev/zero bs=512 seek=$(/usr/bin/expr \( $ROOTSIZE + $HOMESIZE + 100000000 \) / 512) count=1 of=fimage.img
+/sbin/e2fsck -f -y fimage.img
+/sbin/resize2fs -f fimage.img
+
+mount -o loop fimage.img $FIMAGE_TEMP
+mkdir -p $FIMAGE_TEMP/${RELEASENAME}
+mv root.img.gz* $FIMAGE_TEMP/${RELEASENAME}
+mv home.img.gz* $FIMAGE_TEMP/${RELEASENAME}
+umount $FIMAGE_TEMP
+rmdir $FIMAGE_TEMP
+
+/sbin/e2fsck -f -y fimage.img
+/sbin/resize2fs -f -M fimage.img
+
+# To make the file magic right lets convert to single file sparse image.
+/usr/bin/img2simg fimage.img fimage.img001
+rm fimage.img
+
+/sbin/losetup -d $LVM_LOOP
+
+mv temp.img sailfish.img
+
+/usr/bin/atruncate sailfish.img
+# To make the file magic right lets convert to single file sparse image.
+/usr/bin/img2simg sailfish.img sailfish.img001
+rm sailfish.img
+
+# To make the file magic right lets convert to single file sparse image.
+/usr/bin/img2simg vendor.img vendor.img001
+rm vendor.img
+
+chmod 755 flash.*
+
+FILES="flash* *.img* *.exe *.dll *-release"
+
+# Set supported devices in flash scripts
+sed -e "s/\@DEVICES\@/\-e \"t5\" -e \"QX1000\"/g" -i flash.sh
+sed -e "s/\@DEVICES\@/t5 QX1000/g" -i flash-on-windows.bat
+
+mkdir -p ${RELEASENAME}
+
+mv ${FILES} ${RELEASENAME}/
+
+# Calculate md5sums of files included to the archive
+cd ${RELEASENAME}
+md5sum * > $MD5SUMFILE
+cd ..
+
+# Package stuff back to archive
+zip -r ${RELEASENAME}.zip $RELEASENAME
+
+# Remove the files from the output directory
+rm -r ${RELEASENAME}
+
+popd
+ 

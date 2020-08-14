@@ -1,0 +1,4 @@
+part / --fstype="ext4" --size=2000 --label=root
+part /home --fstype="ext4" --size=800 --label=home
+part /fimage --fstype="ext4" --size=10 --label=fimage
+part /opt --fstype="ext4" --size=850 --label=vendor 
