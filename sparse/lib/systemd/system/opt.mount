@@ -1,0 +1,12 @@
+[Unit]
+Description=Mount for /opt
+Before=local-fs.target systemd-modules-load.service
+
+[Mount]
+What=/dev/sde36
+Where=/opt
+Type=ext4
+TimeoutSec=10
+
+[Install]
+WantedBy=local-fs.target 
