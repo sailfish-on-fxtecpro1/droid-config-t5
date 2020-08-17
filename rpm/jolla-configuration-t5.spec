@@ -52,6 +52,7 @@ Requires: xkeyboard-config-pro1
 #Add FP support
 Requires: sailfish-fpd-community
 Requires: sailfish-devicelock-fpd
+Requires: droid-fake-crypt
 
 %description
 Meta package to install packages for t5 configurations
