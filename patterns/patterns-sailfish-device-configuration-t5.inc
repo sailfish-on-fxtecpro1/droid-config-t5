@@ -1,10 +1,9 @@
-Name: jolla-configuration-t5
-Summary: Jolla Configuration t5
-Version: 0.0.1
-Release: 1
-License: BSD-3-Clause
-Source: %{name}-%{version}.tar.gz
-Requires: jolla-hw-adaptation-t5
+%package -n patterns-sailfish-device-adaptation-t5
+Summary: Sailfish HW Adaptation t5
+
+Requires: patterns-sailfish-device-configuration-common-fp2-sibon
+Requires: patterns-sailfish-device-adaptation-fp2-sibon
+
 Requires: patterns-sailfish-cellular-apps
 Requires: patterns-sailfish-applications
 Requires: patterns-sailfish-ui
@@ -54,6 +53,7 @@ Requires: sailfish-fpd-community
 Requires: sailfish-devicelock-fpd
 Requires: droid-fake-crypt
 
-%description
-Meta package to install packages for t5 configurations
-%files 
+%description -n patterns-sailfish-device-configuration-t5
+Pattern with packages for t5 configurations
+
+%files -n patterns-sailfish-device-configuration-t5

@@ -31,6 +31,8 @@ Obsoletes: ofono-configs-mer
 Provides: usb-moded-configs
 
 %include droid-configs-device/droid-configs.inc
+%include patterns/patterns-sailfish-device-adaptation-t5.inc
+%include patterns/patterns-sailfish-device-configuration-t5.inc
 
 # IMPORTANT if you want to comment out any macros in your .spec, delete the %
 # sign, otherwise they will remain defined! E.g.:

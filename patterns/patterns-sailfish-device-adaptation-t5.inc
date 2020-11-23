@@ -1,9 +1,16 @@
-Name: jolla-hw-adaptation-t5
-Summary: Jolla HW Adaptation t5
-Version: 0.0.1
-Release: 1
-License: BSD-3-Clause
-Source: %{name}-%{version}.tar.gz
+%package -n patterns-sailfish-device-adaptation-t5
+Summary: Sailfish HW Adaptation t5
+
+Requires: droid-hal-t5
+Requires: droid-hal-t5-img-boot
+Requires: droid-hal-t5-kernel-modules
+Requires: droid-config-t5-sailfish
+Requires: droid-config-t5-pulseaudio-settings
+Requires: droid-config-t5-policy-settings
+Requires: droid-config-t5-preinit-plugin
+Requires: droid-config-t5-flashing
+Requires: droid-config-t5-bluez5
+Requires: droid-hal-version-t5
 
 Requires: qt5-plugin-generic-evdev
 
@@ -79,19 +86,7 @@ Requires: geoclue-provider-hybris
 # For mounting SD card automatically
 Requires: sd-utils
 
-Requires: droid-hal-t5
-Requires: droid-hal-t5-img-boot
-Requires: droid-hal-t5-kernel-modules
-Requires: droid-config-t5-sailfish
-Requires: droid-config-t5-pulseaudio-settings
-Requires: droid-config-t5-policy-settings
-Requires: droid-config-t5-preinit-plugin
-Requires: droid-config-t5-flashing
-Requires: droid-config-t5-bluez5
-Requires: droid-hal-version-t5
+%description -n patterns-sailfish-device-adaptation-t5
+Pattern with packages for t5 HW Adaptation
 
-
-%description
-Meta package to install packages for t5 HW Adaptation
-%files
- 
+%files -n patterns-sailfish-device-adaptation-t5
