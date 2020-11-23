@@ -1,8 +1,8 @@
-%package -n patterns-sailfish-device-adaptation-t5
+%package -n patterns-sailfish-device-configuration-t5
 Summary: Sailfish HW Adaptation t5
 
-Requires: patterns-sailfish-device-configuration-common-fp2-sibon
-Requires: patterns-sailfish-device-adaptation-fp2-sibon
+Requires: patterns-sailfish-device-configuration-common-t5
+Requires: patterns-sailfish-device-adaptation-t5
 
 Requires: patterns-sailfish-cellular-apps
 Requires: patterns-sailfish-applications
