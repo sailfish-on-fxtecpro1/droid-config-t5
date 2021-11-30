@@ -32,14 +32,10 @@ Requires: nfcd-binder-plugin
 
 # Vibra
 Requires: ngfd-plugin-native-vibrator
-Requires: qt5-feedback-haptics-native-vibrator
+Requires: libngf-qt5-qtfeedback
 
 # Sensors
 Requires: hybris-libsensorfw-qt5
-
-# Vibra
-Requires: ngfd-plugin-native-vibrator
-Requires: qt5-feedback-haptics-native-vibrator
 
 # Pulseadio
 Requires: pulseaudio-modules-droid
