@@ -1,0 +1,3 @@
+service cnss_diag /system/vendor/bin/cnss_diag_HYBRIS_DISABELD
+disabled
+override
