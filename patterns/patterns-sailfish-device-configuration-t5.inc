@@ -52,6 +52,24 @@ Requires: sailfish-fpd-community
 Requires: sailfish-devicelock-fpd
 Requires: droid-fake-crypt
 
+#Debug tools
+Recommends: vi
+Recommends: strace
+Recommends: gdb
+Recommends: mce-tools
+
+#Sailfish porter tools
+Recommends: jolla-developer-mode
+Recommends: sailfishsilica-qt5-demos
+Recommends: busybox-static
+Recommends: net-tools
+Recommends: openssh-clients
+Recommends: openssh-server
+Recommends: vim-enhanced
+Recommends: zypper
+Recommends: strace
+Recommends: jolla-rnd-device
+
 %description -n patterns-sailfish-device-configuration-t5
 Pattern with packages for t5 configurations
 
